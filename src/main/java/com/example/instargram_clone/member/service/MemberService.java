@@ -18,7 +18,6 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class MemberService {
 
-    @Autowired
     private final MemberRepository memberRepository;
 //    private final BoardRepository boardRepository;
 

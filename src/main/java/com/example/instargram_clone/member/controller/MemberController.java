@@ -1,6 +1,8 @@
 package com.example.instargram_clone.member.controller;
 
 
+
+import com.example.instargram_clone.auth.service.JwtService;
 import com.example.instargram_clone.member.dto.request.MemberCreateRequest;
 import com.example.instargram_clone.member.dto.request.MemberUpdateRequest;
 import com.example.instargram_clone.member.dto.response.MemberResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final JwtService jwtService;
 
     @PostMapping
     public ResponseEntity<Void> registerMember(@RequestBody MemberCreateRequest memberCreateRequest) {
@@ -39,4 +42,6 @@ public class MemberController {
         memberService.updateMember(memberUpdateRequest);
         return ResponseEntity.ok().build();
     }
+
+
 }
