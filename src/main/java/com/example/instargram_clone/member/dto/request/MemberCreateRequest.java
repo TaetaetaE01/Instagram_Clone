@@ -12,8 +12,8 @@ public class MemberCreateRequest {
 
     private String email;
     private String name;
-    private String pw;
-    private String profileURL;
+    private String password;
+    private String profileurl;
     private String statusMessage;
     private LocalDateTime createTime;
 
@@ -21,8 +21,8 @@ public class MemberCreateRequest {
         return Member.builder()
                 .email(this.email)
                 .name(this.name)
-                .pw(this.pw)
-                .profileURL(this.profileURL)
+                .password(this.password)
+                .profileurl(this.profileurl)
                 .statusMessage(this.statusMessage)
                 .build();
     }

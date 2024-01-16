@@ -6,9 +6,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
 
 
 @Getter
@@ -20,39 +17,31 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "password")
-    private String pw;
+    private String password;
 
-    @Column(name = "profile_URL")
-    private String profileURL;
+    private String profileurl;
 
-    @Column(name = "status_Message")
     private String statusMessage;
 
-    @Column(insertable = false, updatable = false, name = "create_date")
-    private LocalDateTime createData;
-
-
     @Builder
-    public Member(String email, String name, String pw, String profileURL, String statusMessage) {
+    public Member(String email, String name, String password, String profileurl, String statusMessage) {
         this.email = email;
         this.name = name;
-        this.pw = pw;
-        this.profileURL = profileURL;
+        this.password = password;
+        this.profileurl = profileurl;
         this.statusMessage = statusMessage;
     }
 
-    public void update(String email, String name, String pw, String profileURL, String statusMessage) {
+
+    public void update(String email, String name, String password, String profileurl, String statusMessage) {
         this.email = email;
         this.name = name;
-        this.pw = pw;
-        this.profileURL = profileURL;
+        this.password = password;
+        this.profileurl = profileurl;
         this.statusMessage = statusMessage;
     }
 }

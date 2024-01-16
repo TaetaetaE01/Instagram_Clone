@@ -7,6 +7,7 @@ import com.example.instargram_clone.member.dto.response.MemberResponse;
 import com.example.instargram_clone.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class MemberService {
 
-
+    @Autowired
     private final MemberRepository memberRepository;
 //    private final BoardRepository boardRepository;
 
@@ -26,21 +27,15 @@ public class MemberService {
     @Transactional
     public void registerMember(MemberCreateRequest memberCreateRequest) {
         //filter(email, name 정보 있으면 back / pw jwt암호화)
-        memberCreateRequest.setPw(bCryptPasswordEncoder.encode(memberCreateRequest.getPw()));
-        Member member = memberCreateRequest.toEntity();
-
-        System.out.println(member.getEmail() + " 이메일");
-        System.out.println(member.getProfileURL() + " 유알엘");
-        System.out.println(member.getStatusMessage() + " 상태매");
-        System.out.println(member.getId() + " 아이디");
-
-        memberRepository.save(member);
-        memberRepository.flush();
+        memberCreateRequest.setPassword(bCryptPasswordEncoder.encode(memberCreateRequest.getPassword()));
+        memberRepository.save(memberCreateRequest.toEntity());
     }
 
     @Transactional(readOnly = true)
     public void deleteMemberInfo(Long id) {
-        memberRepository.delete(getMemberInfoExist(id));
+        if (checkMemberInfoExist(id)) {
+            memberRepository.delete(getMemberInfoExist(id));
+        }
     }
 
     @Transactional(readOnly = true)
@@ -56,11 +51,15 @@ public class MemberService {
         return member;
     }
 
+    @Transactional(readOnly = true)
+    public boolean checkMemberInfoExist(Long id) {
+        memberRepository.findById(id).orElseThrow(() -> new NoSuchElementException("멤버가 존재하지 않습니다."));
+        return true;
+    }
+
     @Transactional
     public void updateMember(MemberUpdateRequest memberUpdateRequest) {
         Member member = getMemberInfoExist(memberUpdateRequest.getId());
-//        member.update(memberUpdateRequest.getName());
+        member.update(memberUpdateRequest.getEmail(), memberUpdateRequest.getName(), memberUpdateRequest.getPassword(), memberUpdateRequest.getProfileURL(), memberUpdateRequest.getStatusMessage());
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.instargram_clone.config;
+package com.example.instargram_clone.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

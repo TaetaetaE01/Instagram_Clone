@@ -39,6 +39,4 @@ public class MemberController {
         memberService.updateMember(memberUpdateRequest);
         return ResponseEntity.ok().build();
     }
-
-
 }

@@ -8,7 +8,7 @@ public class MemberUpdateRequest {
     private Long id;
     private String email;
     private String name;
-    private String pw;
+    private String password;
     private String profileURL;
     private String statusMessage;
 }
