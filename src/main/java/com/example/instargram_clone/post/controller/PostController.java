@@ -34,7 +34,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponse> updatePostInfo(@RequestPart(value = "postUpdateRequest") PostUpdateRequest postUpdateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<Void> updatePostInfo(@RequestPart(value = "postUpdateRequest") PostUpdateRequest postUpdateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
         postService.updatePostInfo(postUpdateRequest, multipartFile);
         return ResponseEntity.ok().build();
     }

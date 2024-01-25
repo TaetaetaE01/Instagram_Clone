@@ -39,7 +39,7 @@ public class MemberController {
         return ResponseEntity.ok(memberResponse);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<Void> updateMemberInfo(@RequestPart(value = "memberUpdateRequest") MemberUpdateRequest memberUpdateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
         memberService.updateMember(memberUpdateRequest, multipartFile);
         return ResponseEntity.ok().build();

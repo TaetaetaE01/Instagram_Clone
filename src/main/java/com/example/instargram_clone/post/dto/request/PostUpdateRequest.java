@@ -8,8 +8,7 @@ import lombok.Getter;
 @Data
 public class PostUpdateRequest {
     private Long id;
-    private String title;
     private String content;
-    private Member member;
+    private Long member;
     private String posturl;
 }

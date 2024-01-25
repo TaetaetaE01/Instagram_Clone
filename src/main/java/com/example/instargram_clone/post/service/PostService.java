@@ -56,11 +56,10 @@ public class PostService {
     @Transactional
     public void updatePostInfo(PostUpdateRequest postUpdateRequest, MultipartFile multipartFile) throws IOException {
         Post post = getPostInfoExist(postUpdateRequest.getId());
-        Member member = memberService.getMemberInfoExist(postUpdateRequest.getId());
+        Member member = memberService.getMemberInfoExist(postUpdateRequest.getMember());
 
         awsS3Service.deleteImage(post.getPosturl().split("/")[3]);
         postUpdateRequest.setPosturl(awsS3Service.uploadImage(multipartFile));
-
 
         post.update(postUpdateRequest.getContent(), member, postUpdateRequest.getPosturl());
     }
