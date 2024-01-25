@@ -1,7 +1,6 @@
 package com.example.instargram_clone.member.controller;
 
 
-
 import com.example.instargram_clone.auth.service.JwtService;
 import com.example.instargram_clone.member.dto.request.MemberCreateRequest;
 import com.example.instargram_clone.member.dto.request.MemberUpdateRequest;
@@ -10,6 +9,9 @@ import com.example.instargram_clone.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/instagram/members")
@@ -20,8 +22,8 @@ public class MemberController {
     private final JwtService jwtService;
 
     @PostMapping
-    public ResponseEntity<Void> registerMember(@RequestBody MemberCreateRequest memberCreateRequest) {
-        memberService.registerMember(memberCreateRequest);
+    public ResponseEntity<Void> registerMember(@RequestPart(value = "memberCreateRequest") MemberCreateRequest memberCreateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
+        memberService.registerMember(memberCreateRequest, multipartFile);
         return ResponseEntity.ok().build();
     }
 
@@ -38,8 +40,8 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateMemberInfo(@RequestBody MemberUpdateRequest memberUpdateRequest) {
-        memberService.updateMember(memberUpdateRequest);
+    public ResponseEntity<Void> updateMemberInfo(@RequestPart(value = "memberUpdateRequest") MemberUpdateRequest memberUpdateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
+        memberService.updateMember(memberUpdateRequest, multipartFile);
         return ResponseEntity.ok().build();
     }
 
