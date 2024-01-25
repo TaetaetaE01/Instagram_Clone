@@ -40,11 +40,9 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public void deleteMemberInfo(Long id) {
-        if (checkMemberInfoExist(id)) {
-            Member member = getMemberInfoExist(id);
-            awsS3Service.deleteImage(member.getProfileurl().split("/")[3]);
-            memberRepository.delete(getMemberInfoExist(id));
-        }
+        Member member = getMemberInfoExist(id);
+        awsS3Service.deleteImage(member.getProfileurl().split("/")[3]);
+        memberRepository.delete(getMemberInfoExist(id));
     }
 
     @Transactional(readOnly = true)

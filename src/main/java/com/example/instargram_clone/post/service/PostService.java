@@ -1,5 +1,6 @@
 package com.example.instargram_clone.post.service;
 
+import com.example.instargram_clone.aws.AwsS3Service;
 import com.example.instargram_clone.member.domain.Member;
 import com.example.instargram_clone.member.service.MemberService;
 import com.example.instargram_clone.post.domain.Post;
@@ -15,8 +16,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -28,31 +31,37 @@ import static java.util.Arrays.stream;
 public class PostService {
 
     private final PostRepository postRepository;
-    //    private final ReplyRepository replyRepository;
-    private final MemberRepository memberRepository;
 
     private final MemberService memberService;
+    private final AwsS3Service awsS3Service;
 
     @Transactional
-    public void registerPost(PostCreateRequest postCreateRequest) {
+    public void registerPost(PostCreateRequest postCreateRequest, MultipartFile multipartFile) throws IOException {
         Member member = memberService.getMemberInfoExist(postCreateRequest.getMember());
+        postCreateRequest.setPosturl(awsS3Service.uploadImage(multipartFile));
         postRepository.save(postCreateRequest.toEntity(member));
     }
 
     @Transactional
     public void deletePostInfo(Long id) {
         // delete (Comment, reply 다 지우기)
-        if (checkPostInfoExist(id)) {
-            postRepository.delete(getPostInfoExist(id));
-        }
+        Post post = getPostInfoExist(id);
+        awsS3Service.deleteImage(post.getPosturl().split("/")[3]);
+        postRepository.delete(getPostInfoExist(id));
+
 //        List<Reply> replyList = replyRepository.findByBoardId(id);
 //        board.setReplyList(replyList);
     }
 
     @Transactional
-    public void updatePostInfo(PostUpdateRequest postUpdateRequest) {
+    public void updatePostInfo(PostUpdateRequest postUpdateRequest, MultipartFile multipartFile) throws IOException {
         Post post = getPostInfoExist(postUpdateRequest.getId());
         Member member = memberService.getMemberInfoExist(postUpdateRequest.getId());
+
+        awsS3Service.deleteImage(post.getPosturl().split("/")[3]);
+        postUpdateRequest.setPosturl(awsS3Service.uploadImage(multipartFile));
+
+
         post.update(postUpdateRequest.getContent(), member, postUpdateRequest.getPosturl());
     }
 
@@ -78,7 +87,6 @@ public class PostService {
         postRepository.findById(id).orElseThrow(() -> new NoSuchElementException(GET_POSTS_NOT_EXISTS_INFO.getMessage()));
         return true;
     }
-
 
 
     @Transactional(readOnly = true)

@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,8 +22,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<Void> registerPost(@RequestBody PostCreateRequest postCreateRequest) {
-        postService.registerPost(postCreateRequest);
+    public ResponseEntity<Void> registerPost(@RequestPart(value = "postCreateRequest") PostCreateRequest postCreateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
+        postService.registerPost(postCreateRequest, multipartFile);
         return ResponseEntity.ok().build();
     }
 
@@ -32,8 +34,8 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponse> updatePostInfo(@RequestBody PostUpdateRequest postUpdateRequest) {
-        postService.updatePostInfo(postUpdateRequest);
+    public ResponseEntity<PostResponse> updatePostInfo(@RequestPart(value = "postUpdateRequest") PostUpdateRequest postUpdateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
+        postService.updatePostInfo(postUpdateRequest, multipartFile);
         return ResponseEntity.ok().build();
     }
 
