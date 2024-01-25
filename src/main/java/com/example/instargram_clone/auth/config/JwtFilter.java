@@ -30,7 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-        logger.info("authorization : {} " + authorization);
+        logger.info("authorization : " + authorization);
 
         // token 틀리면 block
         if (authorization == null) {
@@ -40,7 +40,8 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         // token 꺼내기
-        String token = authorization.split(" ")[1];
+//        String token = authorization.split(" ")[1];
+        String token = authorization;
 
         // token expired 여부
         if (JwtUtil.isExpired(token, secretKey)) {

@@ -4,6 +4,9 @@ import com.example.instargram_clone.post.dto.request.*;
 import com.example.instargram_clone.post.dto.response.PostResponse;
 import com.example.instargram_clone.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,7 @@ import java.util.List;
 @RequestMapping("api/instagram/posts")
 @RequiredArgsConstructor
 public class PostController {
+
     private final PostService postService;
 
     @PostMapping
@@ -39,13 +43,11 @@ public class PostController {
         return ResponseEntity.ok(postResponse);
     }
 
-    @GetMapping("/findAll")
-    public ResponseEntity<PostResponse> findAll() {
-        List<PostResponse> postResponseList = postService.findAll();
-        return ResponseEntity.ok((PostResponse) postResponseList);
+    @GetMapping("/paging")
+    public ResponseEntity<PostResponse> paging(@PageableDefault(page = 1) Pageable pageable) {
+        Page<PostResponse> postsResponsePages = postService.paging(pageable);
+        return ResponseEntity.ok((PostResponse) postsResponsePages);
     }
-
-
 
 
 }

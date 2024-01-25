@@ -1,5 +1,6 @@
 package com.example.instargram_clone.member.service;
 
+import com.example.instargram_clone.config.BaseResponseStatus;
 import com.example.instargram_clone.member.domain.Member;
 import com.example.instargram_clone.member.dto.request.MemberCreateRequest;
 import com.example.instargram_clone.member.dto.request.MemberUpdateRequest;
@@ -7,12 +8,13 @@ import com.example.instargram_clone.member.dto.response.MemberResponse;
 import com.example.instargram_clone.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
+
+import static com.example.instargram_clone.config.BaseResponseStatus.GET_MEMBERS_NOT_EXISTS_INFO;
 
 @Service
 @RequiredArgsConstructor
@@ -46,19 +48,20 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member getMemberInfoExist(Long id) {
         Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new NoSuchElementException(GET_MEMBERS_NOT_EXISTS_INFO.getMessage()));
         return member;
     }
 
     @Transactional(readOnly = true)
     public boolean checkMemberInfoExist(Long id) {
-        memberRepository.findById(id).orElseThrow(() -> new NoSuchElementException("멤버가 존재하지 않습니다."));
+        memberRepository.findById(id).orElseThrow(() -> new NoSuchElementException(GET_MEMBERS_NOT_EXISTS_INFO.getMessage()));
         return true;
     }
 
     @Transactional
     public void updateMember(MemberUpdateRequest memberUpdateRequest) {
         Member member = getMemberInfoExist(memberUpdateRequest.getId());
-        member.update(memberUpdateRequest.getEmail(), memberUpdateRequest.getName(), memberUpdateRequest.getPassword(), memberUpdateRequest.getProfileURL(), memberUpdateRequest.getStatusMessage());
+        memberUpdateRequest.setPassword(bCryptPasswordEncoder.encode(memberUpdateRequest.getPassword()));
+        member.update(memberUpdateRequest.getEmail(), memberUpdateRequest.getName(), memberUpdateRequest.getPassword(), memberUpdateRequest.getProfileurl(), memberUpdateRequest.getStatusMessage());
     }
 }

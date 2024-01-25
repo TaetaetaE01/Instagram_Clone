@@ -21,6 +21,8 @@ public class Post {
 
     private String content;
 
+    private String posturl;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -30,15 +32,17 @@ public class Post {
 //    private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Post(String content, Member member) {
+    public Post(String content, Member member, String posturl) {
         this.content = content;
+        this.posturl = posturl;
         this.member = member;
 //        this.replyList = replyList;
     }
 
 
-    public void update(String content, Member member) {
+    public void update(String content, Member member, String posturl) {
         this.content = content;
+        this.posturl = posturl;
         this.member = member;
     }
 }

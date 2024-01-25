@@ -15,15 +15,14 @@ public class MemberCreateRequest {
     private String password;
     private String profileurl;
     private String statusMessage;
-    private LocalDateTime createTime;
 
     public Member toEntity() {
         return Member.builder()
-                .email(this.email)
-                .name(this.name)
-                .password(this.password)
-                .profileurl(this.profileurl)
-                .statusMessage(this.statusMessage)
+                .email(email)
+                .name(name)
+                .password(password)
+                .profileurl(profileurl)
+                .statusMessage(statusMessage)
                 .build();
     }
 }

@@ -7,12 +7,15 @@ import lombok.Getter;
 
 @Getter
 public class PostCreateRequest {
+
     private String content;
-    private Member member;
+    private Long member;
+    private String posturl;
 
     public Post toEntity(Member member) {
         return Post.builder()
-                .content(this.content)
+                .content(content)
+                .posturl(posturl)
                 .member(member)
                 .build();
     }
