@@ -38,7 +38,7 @@ public class MemberService {
         memberRepository.save(memberCreateRequest.toEntity());
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteMemberInfo(Long id) {
         Member member = getMemberInfoExist(id);
         awsS3Service.deleteImage(member.getProfileurl().split("/")[3]);

@@ -19,10 +19,10 @@ import static com.example.instargram_clone.config.BaseResponseStatus.GET_COMMENT
 @Service
 @RequiredArgsConstructor
 public class CommentService {
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
-    private MemberService memberService;
-    private PostService postService;
+    private final MemberService memberService;
+    private final PostService postService;
 
     @Transactional
     public void registerPost(CommentRegisterRequest commentRegisterRequest) {

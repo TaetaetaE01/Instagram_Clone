@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CommentController {
 
-    private CommentService commentService;
+    private final CommentService commentService;
 
     @PostMapping
     public ResponseEntity<Void> registerComment(@RequestBody CommentRegisterRequest commentRegisterRequest) {

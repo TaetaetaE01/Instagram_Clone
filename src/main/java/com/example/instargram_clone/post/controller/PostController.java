@@ -46,9 +46,9 @@ public class PostController {
     }
 
     @GetMapping("/paging")
-    public ResponseEntity<PostResponse> paging(@PageableDefault(page = 1) Pageable pageable) {
+    public ResponseEntity<Page<PostResponse>> paging(@PageableDefault(page = 1) Pageable pageable) {
         Page<PostResponse> postsResponsePages = postService.paging(pageable);
-        return ResponseEntity.ok((PostResponse) postsResponsePages);
+        return ResponseEntity.ok(postsResponsePages);
     }
 
 
