@@ -10,7 +10,6 @@ import com.example.instargram_clone.entity.post.domain.Post;
 import com.example.instargram_clone.entity.post.service.PostService;
 import com.example.instargram_clone.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

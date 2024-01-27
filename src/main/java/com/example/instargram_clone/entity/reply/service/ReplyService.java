@@ -1,7 +1,6 @@
 package com.example.instargram_clone.entity.reply.service;
 
 import com.example.instargram_clone.entity.comment.domain.Comment;
-import com.example.instargram_clone.entity.comment.dto.response.CommentResponse;
 import com.example.instargram_clone.entity.comment.service.CommentService;
 import com.example.instargram_clone.entity.member.domain.Member;
 import com.example.instargram_clone.entity.member.service.MemberService;
