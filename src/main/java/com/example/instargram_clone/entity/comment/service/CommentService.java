@@ -20,7 +20,6 @@ import static com.example.instargram_clone.config.BaseResponseStatus.GET_COMMENT
 
 @Service
 @RequiredArgsConstructor
-@Lazy
 public class CommentService {
     private final CommentRepository commentRepository;
 

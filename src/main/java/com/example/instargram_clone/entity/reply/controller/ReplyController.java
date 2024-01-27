@@ -1,9 +1,9 @@
 package com.example.instargram_clone.entity.reply.controller;
 
-import com.example.instargram_clone.entity.comment.dto.request.CommentRegisterRequest;
-import com.example.instargram_clone.entity.comment.dto.request.CommentUpdateRequest;
-import com.example.instargram_clone.entity.comment.dto.response.CommentResponse;
 import com.example.instargram_clone.entity.reply.dto.request.ReplyRegisterRequest;
+import com.example.instargram_clone.entity.reply.dto.request.ReplyUpdateRequest;
+import com.example.instargram_clone.entity.reply.dto.response.ReplyResponse;
+import com.example.instargram_clone.entity.reply.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,28 +14,29 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ReplyController {
 
-//    private ReplyService replyService;
+    private final ReplyService replyService;
+
     @PostMapping
     public ResponseEntity<Void> registerComment(@RequestBody ReplyRegisterRequest replyRegisterRequest) {
-//        replyService.registerPost(replyRegisterRequest);
+        replyService.registerReply(replyRegisterRequest);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteComment(@PathVariable("id") Long id) {
-//        replyService.deleteComment(id);
+    public ResponseEntity<Void> deleteReply(@PathVariable("id") Long id) {
+        replyService.deleteReply(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateComment(@RequestBody CommentUpdateRequest commentUpdateRequest) {
-//        replyService.updateComment(commentUpdateRequest);
+    public ResponseEntity<Void> updateReply(@RequestBody ReplyUpdateRequest replyUpdateRequest) {
+        replyService.updateReply(replyUpdateRequest);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Void> getOneComment(@PathVariable("id") Long id) {
-//        CommentResponse commentResponse = replyService.findOne(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ReplyResponse> getOneReply(@PathVariable("id") Long id) {
+        ReplyResponse replyResponse = replyService.findOne(id);
+        return ResponseEntity.ok().body(replyResponse);
     }
 }
