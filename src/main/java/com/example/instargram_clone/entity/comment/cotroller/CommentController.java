@@ -4,9 +4,12 @@ import com.example.instargram_clone.entity.comment.dto.request.CommentRegisterRe
 import com.example.instargram_clone.entity.comment.dto.request.CommentUpdateRequest;
 import com.example.instargram_clone.entity.comment.dto.response.CommentResponse;
 import com.example.instargram_clone.entity.comment.service.CommentService;
+import com.example.instargram_clone.entity.post.dto.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/instagram/comments")
@@ -37,5 +40,11 @@ public class CommentController {
     public ResponseEntity<CommentResponse> getOneComment(@PathVariable("id") Long id) {
         CommentResponse commentResponse = commentService.findOne(id);
         return ResponseEntity.ok(commentResponse);
+    }
+
+    @GetMapping("/getComments/{id}")
+    public ResponseEntity<List<CommentResponse>> getComments(@PathVariable("id") Long id) {
+        List<CommentResponse> commentList = commentService.getCommentListByPostId(id);
+        return ResponseEntity.ok(commentList);
     }
 }
