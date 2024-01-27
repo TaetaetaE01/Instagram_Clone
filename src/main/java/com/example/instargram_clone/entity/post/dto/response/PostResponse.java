@@ -9,14 +9,13 @@ public class PostResponse {
     private String content;
     private String posturl;
     private Long memberId;
-//    private List<Reply> replyList;
+
 
     public PostResponse(Long id, String content, String posturl, Long memberId) {
         this.id = id;
         this.content = content;
         this.posturl = posturl;
         this.memberId = memberId;
-//        this.replyList = replyList;
     }
 
     public static PostResponse from(Post post) {

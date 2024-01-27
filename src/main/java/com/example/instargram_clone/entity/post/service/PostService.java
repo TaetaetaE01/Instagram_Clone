@@ -47,13 +47,10 @@ public class PostService {
 
     @Transactional
     public void deletePostInfo(Long id) {
-        // delete (Comment, reply 다 지우기)
         Post post = getPostInfoExist(id);
         awsS3Service.deleteImage(post.getPosturl().split("/")[3]);
         postRepository.delete(getPostInfoExist(id));
 
-//        List<Reply> replyList = replyRepository.findByBoardId(id);
-//        board.setReplyList(replyList);
     }
 
     @Transactional
@@ -70,10 +67,6 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostResponse findOne(Long id) {
         Post post = getPostInfoExist(id);
-
-        // 피드글에 있는 댓글, 답글도 가져와야 함
-//        List<Reply> replyList = replyRepository.findByBoardId(id);
-//        board.setReplyList(replyList);
         return PostResponse.from(post);
     }
 

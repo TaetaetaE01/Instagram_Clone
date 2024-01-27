@@ -39,7 +39,6 @@ public class Post {
         this.commentList = commentList;
     }
 
-
     public void update(String content, Member member, String posturl) {
         this.content = content;
         this.posturl = posturl;
