@@ -1,5 +1,6 @@
 package com.example.instargram_clone.entity.reply.controller;
 
+import com.example.instargram_clone.entity.post.dto.response.PostResponse;
 import com.example.instargram_clone.entity.reply.dto.request.ReplyRegisterRequest;
 import com.example.instargram_clone.entity.reply.dto.request.ReplyUpdateRequest;
 import com.example.instargram_clone.entity.reply.dto.response.ReplyResponse;
@@ -7,6 +8,8 @@ import com.example.instargram_clone.entity.reply.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -38,5 +41,11 @@ public class ReplyController {
     public ResponseEntity<ReplyResponse> getOneReply(@PathVariable("id") Long id) {
         ReplyResponse replyResponse = replyService.findOne(id);
         return ResponseEntity.ok().body(replyResponse);
+    }
+
+    @GetMapping("/getReplies/{id}")
+    public ResponseEntity<List<ReplyResponse>> getReplies(@PathVariable("id") Long id) {
+        List<ReplyResponse> repliesList = replyService.getRepliesListByCommentId(id);
+        return ResponseEntity.ok(repliesList);
     }
 }

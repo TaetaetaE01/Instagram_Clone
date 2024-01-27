@@ -5,6 +5,7 @@ import com.example.instargram_clone.entity.comment.service.CommentService;
 import com.example.instargram_clone.entity.member.domain.Member;
 import com.example.instargram_clone.entity.member.service.MemberService;
 import com.example.instargram_clone.entity.post.domain.Post;
+import com.example.instargram_clone.entity.post.dto.response.PostResponse;
 import com.example.instargram_clone.entity.post.service.PostService;
 import com.example.instargram_clone.entity.reply.domain.Reply;
 import com.example.instargram_clone.entity.reply.dto.request.ReplyRegisterRequest;
@@ -15,7 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import static com.example.instargram_clone.config.BaseResponseStatus.GET_REPLIES_NOT_EXISTS_INFO;
 
@@ -57,5 +60,13 @@ public class ReplyService {
     @Transactional(readOnly = true)
     public ReplyResponse findOne(Long id) {
         return ReplyResponse.from(getReplyInfoExist(id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReplyResponse> getRepliesListByCommentId(Long id) {
+        List<Reply> replyList = replyRepository.findRepliesByCommentId(id);
+        return replyList.stream()
+                .map(ReplyResponse::from)
+                .collect(Collectors.toList());
     }
 }
