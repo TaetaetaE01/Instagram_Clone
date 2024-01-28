@@ -6,6 +6,6 @@ import lombok.Getter;
 
 @Getter
 public class FollowUndoRequest {
-    private Member follower;
-    private Member following;
+    private Long followerId;
+    private Long followingId;
 }

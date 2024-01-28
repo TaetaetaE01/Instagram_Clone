@@ -5,15 +5,22 @@ import com.example.instargram_clone.entity.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface FollowRepository extends JpaRepository<Follow, Long> {
-    @Modifying
-    @Query("DELETE FROM Follow  WHERE follower = :follower AND following = :following")
-    void unFollowMember(Member follower, Member following);
+//    @Modifying
+//    @Query("DELETE FROM Follow  WHERE follower = :follower AND following = :following")
+//    void unFollowMember(@Param("follower") Long follower, @Param("following") Long following);
 
-    @Query("SELECT COUNT(f.following) FROM Follow f WHERE f.follower = :followId")
-    Long countFollowingsByFollowId(Long followId);
+    void deleteByFollowerIdAndFollowingId(Long followerId, Long followingId);
 
-    @Query("SELECT COUNT(f.follower) FROM Follow f WHERE f.following = :followingId")
-    Long countFollowersByFollowId(Long followingId);
+    Long countByFollowerId(Long followerId);
+
+    Long countByFollowingId(Long followingId);
+
+//    @Query("SELECT COUNT(f.following) FROM Follow f WHERE f.follower = :memberFollowId")
+//    Long countFollowingsByFollowId(@Param("memberFollowId") Long memberFollowId);
+//
+//    @Query("SELECT COUNT(f.follower) FROM Follow f WHERE f.following = :memberFollowId")
+//    Long countFollowersByFollowId(@Param("memberFollowId")Long memberFollowId);
 }

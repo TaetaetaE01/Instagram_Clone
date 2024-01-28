@@ -1,7 +1,8 @@
 package com.example.instargram_clone.entity.follow.controller;
 
 import com.example.instargram_clone.entity.follow.dto.request.FollowDoRequest;
-import com.example.instargram_clone.entity.follow.dto.request.FollowGetCountInfoRequest;
+import com.example.instargram_clone.entity.follow.dto.request.FollowGetFollowerInfoCountRequest;
+import com.example.instargram_clone.entity.follow.dto.request.FollowGetFollowingCountRequest;
 import com.example.instargram_clone.entity.follow.dto.request.FollowUndoRequest;
 import com.example.instargram_clone.entity.follow.dto.response.FollowResponse;
 import com.example.instargram_clone.entity.follow.service.FollowService;
@@ -22,20 +23,21 @@ public class FollowController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/unFollow")
+    @DeleteMapping("/unfollow")
     public ResponseEntity<Void> unFollow(@RequestBody FollowUndoRequest followUndoRequest) {
         followService.unFollow(followUndoRequest);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/getFollowing")
-    public ResponseEntity<FollowResponse> getFollowingCountByFollowId(@RequestBody FollowGetCountInfoRequest followGetFollowingRequest) {
+    public ResponseEntity<FollowResponse> getFollowingCountByFollowId(@RequestBody FollowGetFollowingCountRequest followGetFollowingRequest) {
         FollowResponse followResponse = followService.getFollowingCount(followGetFollowingRequest);
         return ResponseEntity.ok().body(followResponse);
     }
 
     @GetMapping("/getFollower")
-    public ResponseEntity<FollowResponse> getFollowerCountByFollowingId(@RequestBody FollowGetCountInfoRequest followGetFollowingRequest) {
-        FollowResponse followResponse = followService.getFollowerCount(followGetFollowingRequest);
+    public ResponseEntity<FollowResponse> getFollowerCountByFollowingId(@RequestBody FollowGetFollowerInfoCountRequest followGetFollowerInfoCountRequest) {
+        FollowResponse followResponse = followService.getFollowerCount(followGetFollowerInfoCountRequest);
         return ResponseEntity.ok().body(followResponse);
     }
 

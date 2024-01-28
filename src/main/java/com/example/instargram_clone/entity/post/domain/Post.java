@@ -1,14 +1,14 @@
 package com.example.instargram_clone.entity.post.domain;
 
 import com.example.instargram_clone.entity.comment.domain.Comment;
+import com.example.instargram_clone.entity.like.domain.LikeEntity;
 import com.example.instargram_clone.entity.member.domain.Member;
 
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -29,14 +29,16 @@ public class Post {
 
     // Comment 리스트 oneToMany
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Comment> commentList = new ArrayList<>();
+    private Set<Comment> commentSet;
+
 
     @Builder
-    public Post(String content, Member member, String posturl, List<Comment> commentList) {
+    public Post(String content, Member member, String posturl, Set<Comment> commentSet, Set<LikeEntity> likeSet) {
         this.content = content;
         this.posturl = posturl;
         this.member = member;
-        this.commentList = commentList;
+        this.commentSet = commentSet;
+//        this.likeSet = likeSet;
     }
 
     public void update(String content, Member member, String posturl) {

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Like {
+public class LikeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class Like {
     private Post post;
 
     @Builder
-    public Like(Long id, Member member, Post post) {
+    public LikeEntity(Long id, Member member, Post post) {
         this.id = id;
         this.member = member;
         this.post = post;

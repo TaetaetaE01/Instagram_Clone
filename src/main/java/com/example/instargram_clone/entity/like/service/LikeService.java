@@ -1,6 +1,6 @@
 package com.example.instargram_clone.entity.like.service;
 
-import com.example.instargram_clone.entity.like.domain.Like;
+import com.example.instargram_clone.entity.like.domain.LikeEntity;
 import com.example.instargram_clone.entity.like.dto.request.LikeCreateRequest;
 import com.example.instargram_clone.entity.like.dto.request.LikeGetLikeCountRequest;
 import com.example.instargram_clone.entity.like.dto.response.LikeResponse;
@@ -40,8 +40,8 @@ public class LikeService {
     }
 
     @Transactional(readOnly = true)
-    public Like getLikeInfoExit(Long id) {
-        Like like = likeRepository.findById(id)
+    public LikeEntity getLikeInfoExit(Long id) {
+        LikeEntity like = likeRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(GET_LIKES_NOT_EXISTS_INFO.getMessage()));
         return like;
     }

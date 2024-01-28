@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class ReplyResponse {
     private Long id;
-    private Member member;
-    private Post post;
-    private Comment comment;
+    private Long member;
+    private Long post;
+    private Long comment;
     private String content;
 
-    public ReplyResponse(Long id, Member member, Post post, Comment comment, String content) {
+    public ReplyResponse(Long id, Long member, Long post, Long comment, String content) {
         this.id = id;
         this.member = member;
         this.post = post;
@@ -23,6 +23,6 @@ public class ReplyResponse {
     }
 
     public static ReplyResponse from(Reply reply) {
-        return new ReplyResponse(reply.getId(), reply.getMember(), reply.getPost(), reply.getComment(), reply.getContent());
+        return new ReplyResponse(reply.getId(), reply.getMember().getId(), reply.getPost().getId(), reply.getComment().getId(), reply.getContent());
     }
 }

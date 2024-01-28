@@ -21,7 +21,7 @@ public class ReplyController {
     private final ReplyService replyService;
 
     @PostMapping
-    public ResponseEntity<Void> registerComment(@RequestBody ReplyRegisterRequest replyRegisterRequest) {
+    public ResponseEntity<Void> registerReply(@RequestBody ReplyRegisterRequest replyRegisterRequest) {
         replyService.registerReply(replyRegisterRequest);
         return ResponseEntity.ok().build();
     }

@@ -1,6 +1,5 @@
 package com.example.instargram_clone.entity.like.dto.response;
 
-import com.example.instargram_clone.entity.like.domain.Like;
 import lombok.Getter;
 
 @Getter

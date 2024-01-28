@@ -2,6 +2,7 @@ package com.example.instargram_clone.entity.member.domain;
 
 
 import com.example.instargram_clone.entity.follow.domain.Follow;
+import com.example.instargram_clone.entity.like.domain.LikeEntity;
 import com.example.instargram_clone.entity.post.domain.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -9,8 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 
@@ -36,6 +35,9 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Post> postSet;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<LikeEntity> likeSet;
+
     @OneToMany(mappedBy = "follower", cascade = CascadeType.REMOVE)
     private Set<Follow> followers;
 
@@ -43,7 +45,7 @@ public class Member {
     private Set<Follow> following;
 
     @Builder
-    public Member(String email, String name, String password, String profileurl, String statusMessage, Set<Post> postSet, Set<Follow> followers, Set<Follow> following) {
+    public Member(String email, String name, String password, String profileurl, String statusMessage, Set<Post> postSet, Set<Follow> followers, Set<Follow> following, Set<LikeEntity> likeSet) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -52,6 +54,7 @@ public class Member {
         this.postSet = postSet;
         this.followers = followers;
         this.following = following;
+        this.likeSet = likeSet;
     }
 
 
