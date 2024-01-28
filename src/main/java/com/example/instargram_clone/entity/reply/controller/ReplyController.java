@@ -1,6 +1,7 @@
 package com.example.instargram_clone.entity.reply.controller;
 
 import com.example.instargram_clone.entity.post.dto.response.PostResponse;
+import com.example.instargram_clone.entity.reply.dto.request.ReplyGetRepliesListRequest;
 import com.example.instargram_clone.entity.reply.dto.request.ReplyRegisterRequest;
 import com.example.instargram_clone.entity.reply.dto.request.ReplyUpdateRequest;
 import com.example.instargram_clone.entity.reply.dto.response.ReplyResponse;
@@ -43,9 +44,9 @@ public class ReplyController {
         return ResponseEntity.ok().body(replyResponse);
     }
 
-    @GetMapping("/getReplies/{id}")
-    public ResponseEntity<List<ReplyResponse>> getReplies(@PathVariable("id") Long id) {
-        List<ReplyResponse> repliesList = replyService.getRepliesListByCommentId(id);
+    @GetMapping("/getReplies")
+    public ResponseEntity<List<ReplyResponse>> getReplies(@RequestBody ReplyGetRepliesListRequest replyGetRepliesListRequest) {
+        List<ReplyResponse> repliesList = replyService.getRepliesListByCommentId(replyGetRepliesListRequest);
         return ResponseEntity.ok(repliesList);
     }
 }

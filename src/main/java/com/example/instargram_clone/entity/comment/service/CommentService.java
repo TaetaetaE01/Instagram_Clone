@@ -1,6 +1,7 @@
 package com.example.instargram_clone.entity.comment.service;
 
 import com.example.instargram_clone.entity.comment.domain.Comment;
+import com.example.instargram_clone.entity.comment.dto.request.CommentGetCommentsListRequest;
 import com.example.instargram_clone.entity.comment.dto.request.CommentRegisterRequest;
 import com.example.instargram_clone.entity.comment.dto.request.CommentUpdateRequest;
 import com.example.instargram_clone.entity.comment.dto.response.CommentResponse;
@@ -58,8 +59,8 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommentResponse> getCommentListByPostId(Long id) {
-        List<Comment> commentTempList = commentRepository.findCommentsByPostId(id);
+    public List<CommentResponse> getCommentListByPostId(CommentGetCommentsListRequest commentGetCommentsListRequest) {
+        List<Comment> commentTempList = commentRepository.findCommentsByPostId(commentGetCommentsListRequest.getPost());
         return commentTempList.stream()
                 .map(CommentResponse::from)
                 .collect(Collectors.toList());

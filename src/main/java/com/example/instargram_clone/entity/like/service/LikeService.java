@@ -48,6 +48,6 @@ public class LikeService {
 
     @Transactional
     public LikeResponse getLikeCount(LikeGetLikeCountRequest likegetLikeCountRequest) {
-        return LikeResponse.from(likeRepository.countLikesByPostId(likegetLikeCountRequest.getPost());
+        return LikeResponse.from(likeRepository.countLikesByPostId(likegetLikeCountRequest.getPost()));
     }
 }

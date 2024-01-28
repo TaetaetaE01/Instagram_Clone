@@ -5,6 +5,7 @@ import com.example.instargram_clone.config.BaseException;
 import com.example.instargram_clone.entity.member.domain.Member;
 import com.example.instargram_clone.entity.member.service.MemberService;
 import com.example.instargram_clone.entity.post.dto.request.PostCreateRequest;
+import com.example.instargram_clone.entity.post.dto.request.PostGetPostsListRequest;
 import com.example.instargram_clone.entity.post.dto.request.PostUpdateRequest;
 import com.example.instargram_clone.entity.post.dto.response.PostResponse;
 import com.example.instargram_clone.entity.post.domain.Post;
@@ -101,8 +102,8 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getPostListByMemberId(Long id) {
-        List<Post> postTempList = postRepository.findPostsByMemberId(id);
+    public List<PostResponse> getPostListByMemberId(PostGetPostsListRequest postGetPostsListRequest) {
+        List<Post> postTempList = postRepository.findPostsByMemberId(postGetPostsListRequest.getMember());
         return postTempList.stream()
                 .map(PostResponse::from)
                 .collect(Collectors.toList());

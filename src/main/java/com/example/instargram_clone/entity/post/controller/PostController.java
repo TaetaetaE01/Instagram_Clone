@@ -1,6 +1,7 @@
 package com.example.instargram_clone.entity.post.controller;
 
 import com.example.instargram_clone.entity.post.dto.request.PostCreateRequest;
+import com.example.instargram_clone.entity.post.dto.request.PostGetPostsListRequest;
 import com.example.instargram_clone.entity.post.dto.request.PostUpdateRequest;
 import com.example.instargram_clone.entity.post.dto.response.PostResponse;
 import com.example.instargram_clone.entity.post.service.PostService;
@@ -24,7 +25,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<Void> registerPost(@RequestPart(value = "postCreateRequest") PostCreateRequest postCreateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<Void> registerPost(@RequestPart(value = "postCreateRequest") PostCreateRequest postCreateRequest,
+                                             @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
         postService.registerPost(postCreateRequest, multipartFile);
         return ResponseEntity.ok().build();
     }
@@ -36,7 +38,8 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updatePostInfo(@RequestPart(value = "postUpdateRequest") PostUpdateRequest postUpdateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<Void> updatePostInfo(@RequestPart(value = "postUpdateRequest") PostUpdateRequest postUpdateRequest,
+                                               @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
         postService.updatePostInfo(postUpdateRequest, multipartFile);
         return ResponseEntity.ok().build();
     }
@@ -53,9 +56,9 @@ public class PostController {
         return ResponseEntity.ok(postsResponsePages);
     }
 
-    @GetMapping("/getPosts/{id}")
-    public ResponseEntity<List<PostResponse>> getPosts(@PathVariable("id") Long id) {
-        List<PostResponse> postList = postService.getPostListByMemberId(id);
+    @GetMapping("/getPosts")
+    public ResponseEntity<List<PostResponse>> getPosts(@RequestBody PostGetPostsListRequest postGetPostsListRequest) {
+        List<PostResponse> postList = postService.getPostListByMemberId(postGetPostsListRequest);
         return ResponseEntity.ok(postList);
     }
 }

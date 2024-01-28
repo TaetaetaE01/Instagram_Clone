@@ -1,5 +1,6 @@
 package com.example.instargram_clone.entity.comment.cotroller;
 
+import com.example.instargram_clone.entity.comment.dto.request.CommentGetCommentsListRequest;
 import com.example.instargram_clone.entity.comment.dto.request.CommentRegisterRequest;
 import com.example.instargram_clone.entity.comment.dto.request.CommentUpdateRequest;
 import com.example.instargram_clone.entity.comment.dto.response.CommentResponse;
@@ -42,9 +43,9 @@ public class CommentController {
         return ResponseEntity.ok(commentResponse);
     }
 
-    @GetMapping("/getComments/{id}")
-    public ResponseEntity<List<CommentResponse>> getComments(@PathVariable("id") Long id) {
-        List<CommentResponse> commentList = commentService.getCommentListByPostId(id);
+    @GetMapping("/getComments")
+    public ResponseEntity<List<CommentResponse>> getComments(@RequestBody CommentGetCommentsListRequest commentGetCommentsListRequest) {
+        List<CommentResponse> commentList = commentService.getCommentListByPostId(commentGetCommentsListRequest);
         return ResponseEntity.ok(commentList);
     }
 }

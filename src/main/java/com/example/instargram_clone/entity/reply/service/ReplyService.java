@@ -8,6 +8,7 @@ import com.example.instargram_clone.entity.post.domain.Post;
 import com.example.instargram_clone.entity.post.dto.response.PostResponse;
 import com.example.instargram_clone.entity.post.service.PostService;
 import com.example.instargram_clone.entity.reply.domain.Reply;
+import com.example.instargram_clone.entity.reply.dto.request.ReplyGetRepliesListRequest;
 import com.example.instargram_clone.entity.reply.dto.request.ReplyRegisterRequest;
 import com.example.instargram_clone.entity.reply.dto.request.ReplyUpdateRequest;
 import com.example.instargram_clone.entity.reply.dto.response.ReplyResponse;
@@ -63,8 +64,8 @@ public class ReplyService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReplyResponse> getRepliesListByCommentId(Long id) {
-        List<Reply> replyList = replyRepository.findRepliesByCommentId(id);
+    public List<ReplyResponse> getRepliesListByCommentId(ReplyGetRepliesListRequest replyGetRepliesListRequest) {
+        List<Reply> replyList = replyRepository.findRepliesByCommentId(replyGetRepliesListRequest.getComment());
         return replyList.stream()
                 .map(ReplyResponse::from)
                 .collect(Collectors.toList());
