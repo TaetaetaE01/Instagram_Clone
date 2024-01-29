@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .httpBasic(ht -> ht.disable())
                 .csrf(cs -> cs.disable())
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("api/instagram/**").permitAll();
+                    authorize.requestMatchers("/**").permitAll();
                 })
                 .sessionManagement(aM -> aM.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JwtFilter(jwtService, secretKey), UsernamePasswordAuthenticationFilter.class)
