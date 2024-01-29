@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface FollowRepository extends JpaRepository<Follow, Long> {
 //    @Modifying
 //    @Query("DELETE FROM Follow  WHERE follower = :follower AND following = :following")
@@ -17,6 +19,8 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     Long countByFollowerId(Long followerId);
 
     Long countByFollowingId(Long followingId);
+
+    List<Long> findFollowingIdsByFollowerId(Long followerId);
 
 //    @Query("SELECT COUNT(f.following) FROM Follow f WHERE f.follower = :memberFollowId")
 //    Long countFollowingsByFollowId(@Param("memberFollowId") Long memberFollowId);

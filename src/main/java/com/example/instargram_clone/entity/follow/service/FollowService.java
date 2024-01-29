@@ -1,5 +1,6 @@
 package com.example.instargram_clone.entity.follow.service;
 
+import com.example.instargram_clone.entity.follow.domain.Follow;
 import com.example.instargram_clone.entity.follow.dto.request.FollowDoRequest;
 import com.example.instargram_clone.entity.follow.dto.request.FollowGetFollowerInfoCountRequest;
 import com.example.instargram_clone.entity.follow.dto.request.FollowGetFollowingCountRequest;
@@ -11,6 +12,8 @@ import com.example.instargram_clone.repository.FollowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -40,4 +43,10 @@ public class FollowService {
     public FollowResponse getFollowerCount(FollowGetFollowerInfoCountRequest followGetFollowerInfoCountRequest) {
         return FollowResponse.from(followRepository.countByFollowingId(followGetFollowerInfoCountRequest.getFollowingId()));
     }
+
+    @Transactional
+    public List<Long> getFollowInfo(Long followerId) {
+        return followRepository.findFollowingIdsByFollowerId(followerId);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.instargram_clone.entity.post.controller;
 
 import com.example.instargram_clone.entity.post.dto.request.PostCreateRequest;
+import com.example.instargram_clone.entity.post.dto.request.PostGetFeedPagingRequest;
 import com.example.instargram_clone.entity.post.dto.request.PostGetPostsListRequest;
 import com.example.instargram_clone.entity.post.dto.request.PostUpdateRequest;
 import com.example.instargram_clone.entity.post.dto.response.PostResponse;
@@ -56,8 +57,14 @@ public class PostController {
         return ResponseEntity.ok(postsResponsePages);
     }
 
-    @GetMapping("/getPosts")
-    public ResponseEntity<List<PostResponse>> getPosts(@RequestBody PostGetPostsListRequest postGetPostsListRequest) {
+    @GetMapping("/getFeed")
+    public ResponseEntity<Page<PostResponse>> getFeedPaging(@RequestBody PostGetFeedPagingRequest postGetFeedPagingRequest , @PageableDefault(page = 1) Pageable pageable) {
+        Page<PostResponse> postsResponsePages = postService.feedPaging(postGetFeedPagingRequest,pageable);
+        return ResponseEntity.ok(postsResponsePages);
+    }
+
+    @GetMapping("/getPostsByMember")
+    public ResponseEntity<List<PostResponse>> getPostsByMember(@RequestBody PostGetPostsListRequest postGetPostsListRequest) {
         List<PostResponse> postList = postService.getPostListByMemberId(postGetPostsListRequest);
         return ResponseEntity.ok(postList);
     }
