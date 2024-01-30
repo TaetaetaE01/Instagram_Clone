@@ -3,6 +3,7 @@ package com.example.instargram_clone.entity.member.controller;
 
 import com.example.instargram_clone.auth.service.JwtService;
 import com.example.instargram_clone.entity.member.dto.request.MemberCreateRequest;
+import com.example.instargram_clone.entity.member.dto.request.MemberLoginRequest;
 import com.example.instargram_clone.entity.member.dto.request.MemberUpdateRequest;
 import com.example.instargram_clone.entity.member.dto.response.MemberResponse;
 import com.example.instargram_clone.entity.member.service.MemberService;
@@ -21,7 +22,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    private final JwtService jwtService;
 
     @PostMapping
     public ResponseEntity<Void> registerMember(@RequestPart(value = "memberCreateRequest") MemberCreateRequest memberCreateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
@@ -45,5 +45,11 @@ public class MemberController {
     public ResponseEntity<Void> updateMemberInfo(@RequestPart(value = "memberUpdateRequest") MemberUpdateRequest memberUpdateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
         memberService.updateMember(memberUpdateRequest, multipartFile);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody MemberLoginRequest memberLoginRequest) {
+        String token = memberService.login(memberLoginRequest);
+        return ResponseEntity.ok().body(token);
     }
 }

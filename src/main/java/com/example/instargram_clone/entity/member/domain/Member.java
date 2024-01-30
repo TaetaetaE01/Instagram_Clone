@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Set;
 
@@ -64,5 +65,16 @@ public class Member {
         this.password = password;
         this.profileurl = profileurl;
         this.statusMessage = statusMessage;
+    }
+
+    public void encodePassword(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        bCryptPasswordEncoder.encode(this.password);
+    }
+
+    public void setProfileurl(String profileurl) {
+        this.profileurl = profileurl;
+    }
+
+    public void orElseThrow(Object o) {
     }
 }
