@@ -1,6 +1,7 @@
 package com.example.instargram_clone.domain.post.service;
 
 import com.example.instargram_clone.aws.AwsS3Service;
+import com.example.instargram_clone.domain.follow.entity.Follow;
 import com.example.instargram_clone.domain.follow.service.FollowService;
 import com.example.instargram_clone.domain.member.entity.Member;
 import com.example.instargram_clone.domain.member.service.MemberService;
@@ -108,9 +109,12 @@ public class PostService {
         int page = pageable.getPageNumber() - 1; // page 위치에 있는 값은 0부터 시작한다.
         int pageLimit = 3; // 한 페이지에 보여줄 글 개수
 
-        List<Long> memberIds = followService.getFollowInfo(postGetFeedPagingRequest.getMember());
+        List<Follow> followList = followService.getFollowInfo(postGetFeedPagingRequest.getMember());
+        List<Member> followingList = followList.stream()
+                .map(Follow::getFollowing)
+                .toList();
 
-        Page<Post> postsPages = postRepository.findAllByMemberIdIn(memberIds, PageRequest.of(page, pageLimit));
+        Page<Post> postsPages = postRepository.findAllByMemberIn(followingList, PageRequest.of(page, pageLimit));
 
         List<PostResponse> postsResponseList = postsPages.getContent().stream()
                 .map(PostResponse::from)

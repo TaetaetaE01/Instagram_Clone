@@ -6,6 +6,7 @@ import com.example.instargram_clone.domain.follow.dto.request.FollowGetFollowerI
 import com.example.instargram_clone.domain.follow.dto.request.FollowGetFollowingCountRequest;
 import com.example.instargram_clone.domain.follow.dto.request.FollowUndoRequest;
 import com.example.instargram_clone.domain.follow.dto.response.FollowResponse;
+import com.example.instargram_clone.domain.follow.entity.Follow;
 import com.example.instargram_clone.domain.member.entity.Member;
 import com.example.instargram_clone.domain.member.service.MemberService;
 import com.example.instargram_clone.repository.FollowRepository;
@@ -52,8 +53,8 @@ public class FollowService {
     }
 
     @Transactional
-    public List<Long> getFollowInfo(Long followerId) {
-        return followRepository.findFollowingIdsByFollowerId(followerId);
+    public List<Follow> getFollowInfo(Long followerId) {
+        return followRepository.findAllByFollowerId(followerId);
     }
 
 }

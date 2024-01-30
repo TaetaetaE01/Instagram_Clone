@@ -75,6 +75,4 @@ public class Member {
         this.profileurl = profileurl;
     }
 
-    public void orElseThrow(Object o) {
-    }
 }
