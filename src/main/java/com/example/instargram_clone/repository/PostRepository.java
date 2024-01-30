@@ -1,6 +1,6 @@
 package com.example.instargram_clone.repository;
 
-import com.example.instargram_clone.entity.post.domain.Post;
+import com.example.instargram_clone.domain.post.entity.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

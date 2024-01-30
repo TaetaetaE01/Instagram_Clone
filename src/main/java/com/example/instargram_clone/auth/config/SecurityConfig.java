@@ -31,6 +31,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/**").permitAll();
                 })
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers("/api/instagram/members/login").permitAll();
+                })
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers("/api/instagram/members/singUp").permitAll();
+                })
                 .sessionManagement(aM -> aM.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JwtFilter(jwtService, secretKey), UsernamePasswordAuthenticationFilter.class)
                 .build();
