@@ -27,8 +27,8 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Void> registerPost(@RequestPart(value = "postCreateRequest") PostCreateRequest postCreateRequest,
-                                             @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
-        postService.registerPost(postCreateRequest, multipartFile);
+                                             @RequestPart(value = "imageFile") List<MultipartFile> multipartFiles) throws IOException {
+        postService.registerPost(postCreateRequest, multipartFiles);
         return ResponseEntity.ok().build();
     }
 
@@ -58,8 +58,8 @@ public class PostController {
     }
 
     @GetMapping("/getFeed")
-    public ResponseEntity<Page<PostResponse>> getFeedPaging(@RequestBody PostGetFeedPagingRequest postGetFeedPagingRequest , @PageableDefault(page = 1) Pageable pageable) {
-        Page<PostResponse> postsResponsePages = postService.feedPaging(postGetFeedPagingRequest,pageable);
+    public ResponseEntity<Page<PostResponse>> getFeedPaging(@RequestBody PostGetFeedPagingRequest postGetFeedPagingRequest, @PageableDefault(page = 1) Pageable pageable) {
+        Page<PostResponse> postsResponsePages = postService.feedPaging(postGetFeedPagingRequest, pageable);
         return ResponseEntity.ok(postsResponsePages);
     }
 

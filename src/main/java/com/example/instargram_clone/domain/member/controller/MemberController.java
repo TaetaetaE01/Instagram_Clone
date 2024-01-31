@@ -20,8 +20,9 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/singUp")
-    public ResponseEntity<Void> registerMember(@RequestPart(value = "memberCreateRequest") MemberCreateRequest memberCreateRequest, @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
+    @PostMapping("/signUp")
+    public ResponseEntity<Void> registerMember(@RequestPart(value = "memberCreateRequest") MemberCreateRequest memberCreateRequest,
+                                               @RequestPart(value = "imageFile") MultipartFile multipartFile) throws IOException {
         memberService.registerMember(memberCreateRequest, multipartFile);
         return ResponseEntity.ok().build();
     }

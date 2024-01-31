@@ -12,6 +12,11 @@ public class PostCreateRequest {
     private Long member;
     private String posturl;
 
+    public PostCreateRequest(String content, Long member){
+        this.content = content;
+        this.member = member;
+    }
+
     public Post toEntity(Member member) {
         return Post.builder()
                 .content(content)

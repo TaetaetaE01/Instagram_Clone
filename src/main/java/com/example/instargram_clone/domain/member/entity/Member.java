@@ -46,7 +46,8 @@ public class Member {
     private Set<Follow> following;
 
     @Builder
-    public Member(String email, String name, String password, String profileurl, String statusMessage, Set<Post> postSet, Set<Follow> followers, Set<Follow> following, Set<LikeEntity> likeSet) {
+    public Member(Long id, String email, String name, String password, String profileurl, String statusMessage, Set<Post> postSet, Set<Follow> followers, Set<Follow> following, Set<LikeEntity> likeSet) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;

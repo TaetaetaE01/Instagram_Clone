@@ -5,4 +5,8 @@ import lombok.Getter;
 @Getter
 public class PostGetFeedPagingRequest {
     private Long member;
+
+    public PostGetFeedPagingRequest(Long member) {
+        this.member = member;
+    }
 }

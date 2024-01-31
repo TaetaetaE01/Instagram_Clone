@@ -27,6 +27,12 @@ public class MemberResponse {
         this.statusMessage = statusMessage;
     }
 
+    public MemberResponse(String email, String name, String profileurl) {
+        this.email = email;
+        this.name = name;
+        this.profileurl = profileurl;
+    }
+
 
     public static MemberResponse from(Member member) {
         return new MemberResponse(member.getId(), member.getEmail(), member.getName(), member.getPassword(), member.getProfileurl(), member.getStatusMessage());

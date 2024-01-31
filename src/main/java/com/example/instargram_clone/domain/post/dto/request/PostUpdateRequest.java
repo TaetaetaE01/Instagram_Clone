@@ -9,4 +9,10 @@ public class PostUpdateRequest {
     private String content;
     private Long member;
     private String posturl;
+
+    public PostUpdateRequest(Long id, String content, Long member) {
+        this.id = id;
+        this.content = content;
+        this.member = member;
+    }
 }

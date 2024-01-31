@@ -12,6 +12,12 @@ public class MemberCreateRequest {
     private String profileurl;
     private String statusMessage;
 
+    public MemberCreateRequest(String mail, String testUser, String password) {
+        this.email = mail;
+        this.name = testUser;
+        this.password = password;
+    }
+
     public Member toEntity() {
         return Member.builder()
                 .email(email)
