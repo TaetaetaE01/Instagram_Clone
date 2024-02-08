@@ -1,6 +1,4 @@
-# 제목 없음
-
-## 인스타그램 클론 코딩을 위한 저장소 입니다.
+# 인스타그램 클론 코딩 
 
 ### 미션 목표
 
@@ -68,3 +66,16 @@
 ---
 
 [Instagram_Clone](https://documenter.getpostman.com/view/18378325/2s9Yytgg46)
+
+
+### 기술스택
+
+---
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
+<img src="https://img.shields.io/badge/spring data jpa-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
+<img src="https://img.shields.io/badge/mysql 8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/amazon aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon S3-E15343?style=for-the-badge&logo=Amazon S3&logoColor=white"/>
+
+
